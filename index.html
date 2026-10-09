@@ -251,7 +251,7 @@
     pointer-events: none;
   }
   .strip-room img { object-position: 52% 40%; }
-  .strip-tw img   { object-position: 40% 50%; }
+  .strip-head img { object-position: 50% 50%; }
   .strip-timeline img { object-position: 40% 50%; }
 
   @media (max-width: 700px) {
@@ -618,14 +618,15 @@
   .closing.visible { display: flex; }
   /* A hard cut to Gary in black and white, then the reply comes up like an end title */
   .closing-portrait {
-    width: min(760px, 100%);
-    aspect-ratio: 16 / 9;
+    width: min(var(--measure), 100%);
+    aspect-ratio: 2.8 / 1;
     overflow: hidden;
     background: #0a0a0a;
   }
+  .closing-portrait picture { display: block; width: 100%; height: 100%; }
   .closing-portrait img {
     width: 100%; height: 100%;
-    object-fit: cover; object-position: 50% 40%;
+    object-fit: cover; object-position: 50% 50%;
     display: block;
   }
   .closing-text { opacity: 0; margin-top: 36px; max-width: 560px; }
@@ -647,8 +648,8 @@
     letter-spacing: 0.28em; text-transform: uppercase;
   }
   @media (max-width: 700px) {
-    .closing-portrait { aspect-ratio: 4 / 3; }
-    .closing-portrait img { object-position: 55% 40%; }
+    .closing-portrait { aspect-ratio: 2 / 1; }
+    .closing-portrait img { object-position: 50% 50%; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -953,12 +954,13 @@
     <div class="scene-inner">
       <div class="label-caps act-label">Act 04 · Greenlight</div>
 
-      <div class="strip strip-tw">
-        <img src="assets/client/tw-room-2160.jpg"
-             srcset="assets/client/tw-room-1440.jpg 1440w, assets/client/tw-room-2160.jpg 2160w, assets/client/tw-room-2880.jpg 2880w"
+      <!-- Portrait widened to the strip: background extended with blur from the
+           photo's own bokeh (source/strips/gary-profile-blurfill.jpg). -->
+      <div class="strip strip-head">
+        <img src="assets/client/gary-head-strip-2160.jpg"
+             srcset="assets/client/gary-head-strip-1440.jpg 1440w, assets/client/gary-head-strip-2160.jpg 2160w, assets/client/gary-head-strip-2880.jpg 2880w"
              sizes="(max-width: 1100px) 100vw, 1040px"
-             alt="Gary Swanwick in conversation with a Trade Winds member" loading="lazy">
-        <div class="strip-caption">Trade Winds · February 2026</div>
+             alt="Gary Swanwick in profile, in black and white" loading="lazy">
       </div>
 
       <div class="scene-header">
@@ -1080,16 +1082,19 @@
 <!-- ============ CLOSING SCREEN ============ -->
 <div class="closing" id="closing" aria-live="polite">
   <div class="closing-portrait">
-    <img src="assets/client/gary-profile-1440.jpg"
-         srcset="assets/client/gary-profile-1440.jpg 1440w, assets/client/gary-profile-2160.jpg 2160w"
-         sizes="(max-width: 800px) 100vw, 760px"
-         alt="Gary Swanwick in profile, in black and white" loading="lazy">
+    <picture>
+      <source media="(max-width: 700px)" srcset="assets/client/gary-night-strip-tall-720.jpg 720w, assets/client/gary-night-strip-tall-1080.jpg 1080w" sizes="100vw">
+      <img src="assets/client/gary-night-strip-2160.jpg"
+           srcset="assets/client/gary-night-strip-1440.jpg 1440w, assets/client/gary-night-strip-2160.jpg 2160w, assets/client/gary-night-strip-2880.jpg 2880w"
+           sizes="(max-width: 1100px) 100vw, 1040px"
+           alt="Gary Swanwick at night, in black and white" loading="lazy">
+    </picture>
   </div>
   <div class="closing-text">
-    <div class="closing-tagline">Got it, Gary.</div>
-    <p class="closing-body">Deposit invoice is on its way and the 22nd is locked in.</p>
+    <div class="closing-tagline">Thank you,<br>Gary.</div>
+    <p class="closing-body">Deposit invoice is on its way and the 22nd is in the calendar.</p>
     <div class="closing-rule"></div>
-    <div class="closing-sub">Charlie</div>
+    <div class="closing-sub">Charlie Tillett</div>
   </div>
 </div>
 
@@ -1262,7 +1267,7 @@
   const deepLink = location.hash.match(/^#act-([1-4])$/);
   if (deepLink) goTo(Number(deepLink[1]) - 1);
 
-  // Closing screen: black, Gary in black and white, then the reply
+  // Closing screen: black, the closing photo, then the thank-you
   const closing = document.getElementById('closing');
   function playClosingScreen() {
     loopFilm.pause();
