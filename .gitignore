@@ -1,0 +1,7 @@
+.DS_Store
+**/.DS_Store
+.claude/
+
+# Originals, the plan PDF and the full-length video source stay local,
+# out of the published site.
+source/
