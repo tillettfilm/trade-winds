@@ -8,15 +8,15 @@
 <meta name="description" content="In Good Company. Films and stills of the rooms Trade Winds brings together, by Tillett Film.">
 <meta property="og:title" content="Trade Winds: version two">
 <meta property="og:description" content="Films and stills of the rooms Trade Winds brings together.">
-<meta property="og:image" content="https://tillettfilm.github.io/trade-winds/assets/shared/og-v2.jpg">
+<meta property="og:image" content="https://tillettfilm.github.io/trade-winds/assets/shared/og-v2s.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://tillettfilm.github.io/trade-winds/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Trade Winds: version two">
-<meta name="twitter:image" content="https://tillettfilm.github.io/trade-winds/assets/shared/og-v2.jpg">
-<link rel="preload" as="image" href="assets/client/gary-room-v2-2160.jpg" imagesrcset="assets/client/gary-room-v2-1440.jpg 1440w, assets/client/gary-room-v2-2160.jpg 2160w, assets/client/gary-room-v2-2880.jpg 2880w" imagesizes="(max-width: 1100px) 100vw, 1040px">
+<meta name="twitter:image" content="https://tillettfilm.github.io/trade-winds/assets/shared/og-v2s.jpg">
+<link rel="preload" as="image" href="assets/client/gary-room-v2s-2160.jpg" imagesrcset="assets/client/gary-room-v2s-1440.jpg 1440w, assets/client/gary-room-v2s-2160.jpg 2160w, assets/client/gary-room-v2s-2880.jpg 2880w" imagesizes="(max-width: 1100px) 100vw, 1040px">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -256,30 +256,21 @@
   .strip-head img { object-position: 50% 50%; }
   .strip-timeline img { object-position: 40% 50%; }
 
-  /* Version two: a large II in Inter Light, white at 18%, bottom right of the
-     cover. Sized from the strip's own width so it holds the same proportion on
-     every screen (cqw, with a viewport fallback). The line box is set to the
-     cap height so "bottom" measures to the foot of the letters. */
-  .strip-room { container-type: inline-size; }
+  /* Version two: a solid white slab-serif II, dead centre of the cover. Drawn
+     as a vector so it's crisp at any size; its height is 60% of the strip's on
+     every screen. Two bars, each a 20-wide stem with 32-wide, 13-tall serifs,
+     4 apart (viewBox 68 x 100). */
   .cover-mark {
-    position: absolute; right: 20px; bottom: 14px; z-index: 2;
-    font-family: var(--sans);
-    font-weight: 300;
-    font-size: calc(min(1040px, 100vw - 64px) * 0.152);
-    font-size: 15.2cqw;
-    line-height: 0.73;
-    letter-spacing: 0.02em;
-    color: rgba(255,255,255,0.18);
+    position: absolute; left: 50%; top: 50%; z-index: 2;
+    height: 60%; width: auto; aspect-ratio: 68 / 100;
+    transform: translate(-50%, -50%);
+    fill: #fff;
     pointer-events: none;
-    user-select: none;
   }
 
   @media (max-width: 700px) {
     .strip { aspect-ratio: 2 / 1; margin-bottom: 24px; }
     .strip-caption { font-size: 7px; left: 11px; bottom: 9px; letter-spacing: 0.12em; }
-    .cover-mark { right: 12px; bottom: 9px; font-size: calc((100vw - 36px) * 0.26); font-size: 26cqw; }
-    /* On phones the strip crops to 2:1; shift right so the II sits clear of the second man's face */
-    .strip-room img { object-position: 74% 40%; }
   }
 
   /* ===== ACT 01 · OPENING CREDITS ===== */
@@ -662,12 +653,12 @@
       <div class="label-caps act-label">A Tillett Film Production</div>
 
       <div class="strip strip-room">
-        <img src="assets/client/gary-room-v2-2160.jpg"
-             srcset="assets/client/gary-room-v2-1440.jpg 1440w, assets/client/gary-room-v2-2160.jpg 2160w, assets/client/gary-room-v2-2880.jpg 2880w"
+        <img src="assets/client/gary-room-v2s-2160.jpg"
+             srcset="assets/client/gary-room-v2s-1440.jpg 1440w, assets/client/gary-room-v2s-2160.jpg 2160w, assets/client/gary-room-v2s-2880.jpg 2880w"
              sizes="(max-width: 1100px) 100vw, 1040px"
              alt="Gary Swanwick listening in a room of founders" fetchpriority="high">
         <div class="strip-caption">In the room</div>
-        <div class="cover-mark" aria-hidden="true">II</div>
+        <svg class="cover-mark" viewBox="0 0 68 100" aria-hidden="true" focusable="false"><path d="M0 0H32V13H26V87H32V100H0V87H6V13H0Z M36 0H68V13H62V87H68V100H36V87H42V13H36Z"/></svg>
       </div>
 
       <div class="cover-grid">
@@ -682,7 +673,7 @@
         <div class="note" id="coverNote">
           <p class="note-salute">Hi Gary,</p>
           <p>Thanks for going through the first version with me on Wednesday. I've rebuilt it around what you told me.</p>
-          <p>It's now two chapters. The first gets Trade Winds live for the new year. The second keeps it current through the first quarter.</p>
+          <p>I've made it two chapters. The first has Trade Winds live for the new year. The second keeps it current through the first quarter.</p>
           <p>It starts with the Table on the 22nd.</p>
           <p class="note-sign">Charlie</p>
         </div>
@@ -703,7 +694,7 @@
           </div>
           <div class="slate-item">
             <div class="slate-label">Prepared</div>
-            <div class="slate-value">15 October 2026</div>
+            <div class="slate-value">17 October 2026</div>
           </div>
         </div>
 
@@ -740,7 +731,7 @@
           </div>
           <div class="interpretation-card">
             <div class="interpretation-label">Through My Lens</div>
-            <div class="interpretation-text">One partnership, the same every month, from now to March. Live on 1 January then built on as the rooms happen.</div>
+            <div class="interpretation-text">A single partnership, the same every month from now to March. Live on 1 January then built on as events happen.</div>
           </div>
         </div>
 
@@ -751,7 +742,7 @@
           </div>
           <div class="interpretation-card">
             <div class="interpretation-label">Through My Lens</div>
-            <div class="interpretation-text">Not if we start now. The Table, the roundtable and the fireside chat all get filmed before Christmas.</div>
+            <div class="interpretation-text">Not if we start now. The Table, the roundtable and the fireside chat all filmed before Christmas.</div>
           </div>
         </div>
 
@@ -762,7 +753,7 @@
           </div>
           <div class="interpretation-card">
             <div class="interpretation-label">Through My Lens</div>
-            <div class="interpretation-text">That's the film. You telling it straight, in the rooms you built. Before there are members to speak for it your reason is the strongest thing Trade Winds has.</div>
+            <div class="interpretation-text">That's the film. You tell your story in the rooms you built. Before there are members to speak for it your reason is the strongest thing Trade Winds has.</div>
           </div>
         </div>
 
@@ -784,7 +775,7 @@
           </div>
           <div class="interpretation-card">
             <div class="interpretation-label">Through My Lens</div>
-            <div class="interpretation-text">I've spent three years filming Heroic Man for Pete Taylor. I know how a room of good people looks on film. I also know what it mustn't look like: networking.</div>
+            <div class="interpretation-text">I've spent three years filming Heroic Man. I know how to do this and how not to do this.</div>
           </div>
         </div>
 
@@ -813,7 +804,6 @@
       <div class="lens">
         <p>The work follows what you're actually running.</p>
         <p>The January film is your story. From the new year the members take over.</p>
-        <p>Nothing you run before Christmas gets missed.</p>
         <p>The site never falls behind the rooms. Every month adds new film, loops and photos.</p>
         <p>You control the risk. Chapter Two is confirmed in December once you've seen the work and how the OGs respond.</p>
         <p>The tone is yours from the brief: warm, understated, established, premium without being pretentious.</p>
@@ -1246,7 +1236,7 @@
   }
 
   // Greenlight
-  const FORMSPREE_ID = 'mnpjdweb';
+  const FORMSPREE_ID = 'mzedozzd';
   const form = document.getElementById('greenlightForm');
   const signBtn = document.getElementById('signBtn');
   const noteField = document.getElementById('gNote');
