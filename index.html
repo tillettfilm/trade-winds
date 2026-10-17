@@ -6,15 +6,17 @@
 <title>Trade Winds · In Good Company · Tillett Film</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="In Good Company. Films and stills of the rooms Trade Winds brings together, by Tillett Film.">
-<meta property="og:title" content="Trade Winds · In Good Company · Tillett Film">
+<meta property="og:title" content="Trade Winds: version two">
 <meta property="og:description" content="Films and stills of the rooms Trade Winds brings together.">
-<meta property="og:image" content="https://tillettfilm.github.io/trade-winds/assets/shared/og.jpg">
+<meta property="og:image" content="https://tillettfilm.github.io/trade-winds/assets/shared/og-v2.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://tillettfilm.github.io/trade-winds/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Trade Winds · In Good Company · Tillett Film">
-<meta name="twitter:image" content="https://tillettfilm.github.io/trade-winds/assets/shared/og.jpg">
-<link rel="preload" as="image" href="assets/client/gary-room-2160.jpg" imagesrcset="assets/client/gary-room-1440.jpg 1440w, assets/client/gary-room-2160.jpg 2160w, assets/client/gary-room-2880.jpg 2880w" imagesizes="(max-width: 1100px) 100vw, 1040px">
+<meta name="twitter:title" content="Trade Winds: version two">
+<meta name="twitter:image" content="https://tillettfilm.github.io/trade-winds/assets/shared/og-v2.jpg">
+<link rel="preload" as="image" href="assets/client/gary-room-v2-2160.jpg" imagesrcset="assets/client/gary-room-v2-1440.jpg 1440w, assets/client/gary-room-v2-2160.jpg 2160w, assets/client/gary-room-v2-2880.jpg 2880w" imagesizes="(max-width: 1100px) 100vw, 1040px">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -254,9 +256,30 @@
   .strip-head img { object-position: 50% 50%; }
   .strip-timeline img { object-position: 40% 50%; }
 
+  /* Version two: a large II in Inter Light, white at 18%, bottom right of the
+     cover. Sized from the strip's own width so it holds the same proportion on
+     every screen (cqw, with a viewport fallback). The line box is set to the
+     cap height so "bottom" measures to the foot of the letters. */
+  .strip-room { container-type: inline-size; }
+  .cover-mark {
+    position: absolute; right: 20px; bottom: 14px; z-index: 2;
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: calc(min(1040px, 100vw - 64px) * 0.152);
+    font-size: 15.2cqw;
+    line-height: 0.73;
+    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.18);
+    pointer-events: none;
+    user-select: none;
+  }
+
   @media (max-width: 700px) {
     .strip { aspect-ratio: 2 / 1; margin-bottom: 24px; }
     .strip-caption { font-size: 7px; left: 11px; bottom: 9px; letter-spacing: 0.12em; }
+    .cover-mark { right: 12px; bottom: 9px; font-size: calc((100vw - 36px) * 0.26); font-size: 26cqw; }
+    /* On phones the strip crops to 2:1; shift right so the II sits clear of the second man's face */
+    .strip-room img { object-position: 74% 40%; }
   }
 
   /* ===== ACT 01 · OPENING CREDITS ===== */
@@ -265,9 +288,16 @@
   .cover-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 56px;
+    grid-template-areas: "head note" "version version";
+    column-gap: 56px;
+    row-gap: 22px;
     align-items: start;
   }
+  .cover-head { grid-area: head; }
+  .cover-grid .note { grid-area: note; }
+  /* The version line is its own row under the title, so the title column and
+     the note keep their matched height and the title keeps its size. */
+  .cover-version { grid-area: version; }
   .cover-title {
     font-size: clamp(2.5rem, 5.6vw, 4.1rem);
     font-weight: 600;
@@ -315,7 +345,8 @@
   .slate-value { font-size: 14px; font-weight: 600; color: var(--ink); }
 
   @media (max-width: 800px) {
-    .cover-grid { grid-template-columns: 1fr; gap: 26px; }
+    .cover-grid { grid-template-columns: 1fr; grid-template-areas: "head" "version" "note"; row-gap: 0; }
+    .cover-version { margin-top: 14px; margin-bottom: 26px; }
     .note { border-left: none; padding-left: 0; border-top: 1px solid var(--line-strong); padding-top: 22px; }
     .slate { grid-template-columns: 1fr 1fr; }
     .slate-item:nth-child(2n) { border-right: none; }
@@ -444,20 +475,6 @@
     .how-row { grid-template-columns: 1fr; gap: 4px; }
   }
 
-  .needs { list-style: none; border-bottom: 1px solid var(--line); }
-  .needs li {
-    display: flex; gap: 16px; align-items: baseline;
-    padding: 12px 0;
-    border-top: 1px solid var(--line);
-    font-size: 14px; line-height: 1.5;
-  }
-  .needs li span {
-    font-size: 10px; font-weight: 600;
-    letter-spacing: 0.22em;
-    color: var(--ink-muted);
-    flex: none; width: 28px;
-  }
-
   /* ===== ACT 04 · GREENLIGHT ===== */
   .paths {
     display: grid;
@@ -470,26 +487,11 @@
     padding: 30px 30px 26px;
     display: flex; flex-direction: column;
   }
-  .invest.alt { background: #1b1b1a; }
   .invest-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 16px; }
   .invest-label {
     font-size: 10px; font-weight: 600;
     letter-spacing: 0.22em; text-transform: uppercase;
     color: rgba(255,255,255,0.5);
-  }
-  .invest-rec {
-    font-size: 10px; font-weight: 500;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    border: 1px solid rgba(255,255,255,0.25);
-    padding: 4px 9px;
-    white-space: nowrap;
-  }
-  .invest-amount {
-    font-size: clamp(2.4rem, 4.6vw, 3.4rem);
-    font-weight: 600;
-    letter-spacing: -0.04em;
-    line-height: 1;
   }
   .invest-summary {
     margin-top: 12px;
@@ -502,7 +504,19 @@
     border-top: 1px solid rgba(255,255,255,0.15);
   }
   .invest-includes .invest-label { margin-bottom: 10px; }
-  .invest-plus { font-size: 13.5px; color: rgba(255,255,255,0.88); margin-bottom: 4px; }
+  .chapter-title { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
+  .invest .invest-includes + .invest-includes { margin-top: 18px; padding-top: 0; border-top: none; }
+  /* "Confirmed…" sits on a rule at the foot of each chapter, so the two line up side by side */
+  .invest > :nth-last-child(2) { margin-bottom: 22px; }
+  .invest-confirm {
+    margin-top: auto; padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+  .terms-block { margin-top: 22px; max-width: 760px; }
+  .terms-block p { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+  .terms-block p + p { margin-top: 8px; }
   .invest-list { list-style: none; color: rgba(255,255,255,0.88); font-size: 13.5px; line-height: 1.55; }
   .invest-list li { display: flex; gap: 10px; padding: 4px 0; }
   .invest-list li::before { content: "·"; color: rgba(255,255,255,0.4); flex: none; }
@@ -517,7 +531,6 @@
   }
 
   .lead { margin-top: 12px; font-size: clamp(1rem, 1.3vw, 1.1rem); line-height: 1.6; color: var(--ink-soft); max-width: 680px; }
-  .line-under { margin-top: 22px; font-size: clamp(1.05rem, 1.5vw, 1.2rem); line-height: 1.5; font-weight: 500; letter-spacing: -0.01em; max-width: 720px; }
   .terms-small { margin-top: 18px; font-size: 13px; line-height: 1.7; color: var(--ink-soft); max-width: 780px; }
   .terms-small + .terms-small { margin-top: 10px; }
   .hold { margin-top: 16px; font-size: 13px; line-height: 1.6; font-weight: 500; color: var(--ink); }
@@ -549,20 +562,6 @@
     flex-shrink: 0; width: 28px;
   }
 
-  .choice { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; border: none; }
-  .choice legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .choice label {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    padding: 16px 18px;
-    border: 1px solid var(--line-strong);
-    cursor: pointer;
-    font-size: 14px; font-weight: 600;
-    transition: border-color 0.2s ease, background 0.2s ease;
-  }
-  .choice label span { font-weight: 400; color: var(--ink-soft); }
-  .choice input { position: absolute; opacity: 0; pointer-events: none; }
-  .choice label:has(input:checked) { border-color: var(--ink); background: var(--bg-alt); box-shadow: inset 0 0 0 1px var(--ink); }
-  .choice label:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
   .note-field {
     width: 100%;
     min-height: 84px;
@@ -576,7 +575,6 @@
   }
   .note-field:focus { outline: none; border-color: var(--ink); }
   .note-label { display: block; font-size: 12px; color: var(--ink-soft); margin-bottom: 6px; }
-  @media (max-width: 600px) { .choice { grid-template-columns: 1fr; } }
 
   .gl-row { display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
   .btn-cta {
@@ -592,6 +590,9 @@
   }
   .btn-cta:hover:not(:disabled) { background: transparent; color: var(--ink); }
   .btn-cta:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-cta.sending:disabled { opacity: 1; cursor: progress; }
+  .send-fail { margin-top: 14px; font-size: 13px; line-height: 1.5; color: var(--ink); }
+  .send-fail a { color: inherit; }
   .signature { display: flex; align-items: center; gap: 14px; }
   .signature-mark {
     width: 44px; height: 44px; border-radius: 50%;
@@ -627,9 +628,8 @@
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1;
-    margin-bottom: 18px;
+    margin-bottom: 26px;
   }
-  .closing-body { color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.6; margin-bottom: 26px; }
   .closing-rule { width: 60px; height: 1px; background: rgba(255,255,255,0.4); margin: 0 auto 22px; }
   .closing-sub {
     color: rgba(255,255,255,0.55);
@@ -662,11 +662,12 @@
       <div class="label-caps act-label">A Tillett Film Production</div>
 
       <div class="strip strip-room">
-        <img src="assets/client/gary-room-2160.jpg"
-             srcset="assets/client/gary-room-1440.jpg 1440w, assets/client/gary-room-2160.jpg 2160w, assets/client/gary-room-2880.jpg 2880w"
+        <img src="assets/client/gary-room-v2-2160.jpg"
+             srcset="assets/client/gary-room-v2-1440.jpg 1440w, assets/client/gary-room-v2-2160.jpg 2160w, assets/client/gary-room-v2-2880.jpg 2880w"
              sizes="(max-width: 1100px) 100vw, 1040px"
              alt="Gary Swanwick listening in a room of founders" fetchpriority="high">
         <div class="strip-caption">In the room</div>
+        <div class="cover-mark" aria-hidden="true">II</div>
       </div>
 
       <div class="cover-grid">
@@ -676,11 +677,13 @@
           <p class="cover-tagline">Films and stills of the rooms Trade Winds brings together.</p>
         </div>
 
+        <p class="label-caps cover-version">Version two. Rebuilt around what you told me on 14 October.</p>
+
         <div class="note" id="coverNote">
           <p class="note-salute">Hi Gary,</p>
-          <p>I've spent time with your brief and the notes from my calls with you and Steve. This is what came out of them.</p>
-          <p>You've built something people only really understand once they're in the room. These films are going to let founders take a seat before they apply.</p>
-          <p>The Table on the 22nd, then the river on the 23rd.</p>
+          <p>Thanks for going through the first version with me on Wednesday. I've rebuilt it around what you told me.</p>
+          <p>It's now two chapters. The first gets Trade Winds live for the new year. The second keeps it current through the first quarter.</p>
+          <p>It starts with the Table on the 22nd.</p>
           <p class="note-sign">Charlie</p>
         </div>
       </div>
@@ -692,7 +695,7 @@
           </div>
           <div class="slate-item">
             <div class="slate-label">Filmed</div>
-            <div class="slate-value">22 and 23 October</div>
+            <div class="slate-value">October to March</div>
           </div>
           <div class="slate-item">
             <div class="slate-label">Director</div>
@@ -700,7 +703,7 @@
           </div>
           <div class="slate-item">
             <div class="slate-label">Prepared</div>
-            <div class="slate-value">12 October 2026</div>
+            <div class="slate-value">15 October 2026</div>
           </div>
         </div>
 
@@ -708,68 +711,80 @@
   </section>
 
   <!-- ====== ACT 02 · BASED ON ======
-       The PTAM listening layout. Verbatim pulls from the call of 30 September
-       2026 (Gemini transcript), window 00:04:07 to 00:14:40 only, checked word
-       for word on 9 October. Charlie checks them against the recording before
-       it goes out.
-         No. 01 The Idea ........ 00:08:38 (one answer; Charlie's "Yeah" lands
-                                 mid-sentence, "um and also" cut at the second ellipsis)
-         No. 02 The Experiences . 00:09:27
-         No. 03 In Parallel ..... 00:13:13
-       No. 04 is paraphrase of Gary's written brief ("What success looks like
-       for me"), so its card carries no quote marks. -->
+       The PTAM listening layout. Verbatim pulls from the Gemini transcripts,
+       checked word for word on 15 October. Charlie checks them against the
+       recordings before it goes out.
+       14 October call, window 00:19:09 to 00:30:24 only:
+         No. 01 The Foundation ...... 00:20:10
+         No. 02 Missing the Content . 00:25:27
+         No. 03 Why You Started It .. 00:27:35 (continuous; Charlie's "Yeah. Yeah."
+                                      lands mid-sentence)
+         No. 04 The Risk ............ 00:25:27
+       30 September call:
+         No. 05 Heroic Man .......... 00:08:38 -->
   <section class="scene alt" data-scene="told" data-title="Based On">
     <div class="scene-inner">
       <div class="scene-header">
         <div class="label-caps act-label">Act 02</div>
         <div class="film-credit-role">Based on the words of</div>
         <h2 class="film-credit-name">Gary Swanwick</h2>
-        <p class="film-credit-byline">Drawn from our call on 30 September and your brief. What I heard, and what that means for the film.</p>
+        <p class="film-credit-byline">Drawn from our calls on 30 September and 14 October. What I heard and what that means for the film.</p>
       </div>
 
       <div class="listening-pairs">
 
         <div class="listening-pair">
           <div class="quote-card">
-            <div class="quote-card-label">No. 01 · The Idea</div>
-            <div class="quote-card-text verbatim">it&rsquo;s about being a bit like Heroic Man but for business &hellip; in terms of being around good people &hellip; educating yourself but having experiences as well</div>
+            <div class="quote-card-label">No. 01 · The Foundation</div>
+            <div class="quote-card-text verbatim">I need a foundational product which then can evolve</div>
+          </div>
+          <div class="interpretation-card">
+            <div class="interpretation-label">Through My Lens</div>
+            <div class="interpretation-text">One partnership, the same every month, from now to March. Live on 1 January then built on as the rooms happen.</div>
+          </div>
+        </div>
+
+        <div class="listening-pair">
+          <div class="quote-card">
+            <div class="quote-card-label">No. 02 · Missing the Content</div>
+            <div class="quote-card-text verbatim">we&rsquo;re going to miss some of the content</div>
+          </div>
+          <div class="interpretation-card">
+            <div class="interpretation-label">Through My Lens</div>
+            <div class="interpretation-text">Not if we start now. The Table, the roundtable and the fireside chat all get filmed before Christmas.</div>
+          </div>
+        </div>
+
+        <div class="listening-pair">
+          <div class="quote-card">
+            <div class="quote-card-label">No. 03 · Why You Started It</div>
+            <div class="quote-card-text verbatim">why I started it as well which is because I couldn&rsquo;t find it on my own journey</div>
+          </div>
+          <div class="interpretation-card">
+            <div class="interpretation-label">Through My Lens</div>
+            <div class="interpretation-text">That's the film. You telling it straight, in the rooms you built. Before there are members to speak for it your reason is the strongest thing Trade Winds has.</div>
+          </div>
+        </div>
+
+        <div class="listening-pair">
+          <div class="quote-card">
+            <div class="quote-card-label">No. 04 · The Risk</div>
+            <div class="quote-card-text verbatim">I want to mitigate the risk</div>
+          </div>
+          <div class="interpretation-card">
+            <div class="interpretation-label">Through My Lens</div>
+            <div class="interpretation-text">You only commit to October to December now. You see the film and how the OGs respond before you commit to the new year.</div>
+          </div>
+        </div>
+
+        <div class="listening-pair">
+          <div class="quote-card">
+            <div class="quote-card-label">No. 05 · Heroic Man for Business</div>
+            <div class="quote-card-text verbatim">it&rsquo;s about being a bit like Heroic Man but for business</div>
           </div>
           <div class="interpretation-card">
             <div class="interpretation-label">Through My Lens</div>
             <div class="interpretation-text">I've spent three years filming Heroic Man for Pete Taylor. I know how a room of good people looks on film. I also know what it mustn't look like: networking.</div>
-          </div>
-        </div>
-
-        <div class="listening-pair">
-          <div class="quote-card">
-            <div class="quote-card-label">No. 02 · The Experiences</div>
-            <div class="quote-card-text verbatim">the walk is a big part of it just as an experience</div>
-          </div>
-          <div class="interpretation-card">
-            <div class="interpretation-label">Through My Lens</div>
-            <div class="interpretation-text">The walk at first light on the river at Cookham is the image nobody else has. We film the experiences not the event.</div>
-          </div>
-        </div>
-
-        <div class="listening-pair">
-          <div class="quote-card">
-            <div class="quote-card-label">No. 03 · In Parallel</div>
-            <div class="quote-card-text verbatim">I think there are things that we can do in parallel</div>
-          </div>
-          <div class="interpretation-card">
-            <div class="interpretation-label">Through My Lens</div>
-            <div class="interpretation-text">Steve and I have already met to line up the brand and the film. I shoot to the brand direction so whoever builds the site builds it from real footage. It all goes live together in January.</div>
-          </div>
-        </div>
-
-        <div class="listening-pair">
-          <div class="quote-card">
-            <div class="quote-card-label">No. 04 · The Test · From your brief</div>
-            <div class="quote-card-text">Someone looks at the site and knows these are their kind of people, the room they'd want to be in.</div>
-          </div>
-          <div class="interpretation-card">
-            <div class="interpretation-label">Through My Lens</div>
-            <div class="interpretation-text">Every frame must be judged against that.</div>
           </div>
         </div>
 
@@ -796,10 +811,11 @@
       </div>
 
       <div class="lens">
-        <p>Every networking group promises the same. Your brief puts it in three words: this isn't networking. Film is the only way a founder gets to experience what you're creating before applying.</p>
-        <p>The brand has to become bigger than you. The members carry the proof and you're the host who brings the room together.</p>
-        <p>Nothing is staged.</p>
-        <p>January is when founders reset their year so it's when they join things. The site, membership and film release together.</p>
+        <p>The work follows what you're actually running.</p>
+        <p>The January film is your story. From the new year the members take over.</p>
+        <p>Nothing you run before Christmas gets missed.</p>
+        <p>The site never falls behind the rooms. Every month adds new film, loops and photos.</p>
+        <p>You control the risk. Chapter Two is confirmed in December once you've seen the work and how the OGs respond.</p>
         <p>The tone is yours from the brief: warm, understated, established, premium without being pretentious.</p>
       </div>
 
@@ -823,7 +839,7 @@
               <img src="assets/work/habitual-thumb.jpg" alt="Members training together at Habitual" loading="lazy">
               <span class="work-play"></span>
             </button>
-            <div class="work-cat">Launch Film</div>
+            <div class="work-cat">Members&rsquo; Club</div>
             <div class="work-title">Giles Denning: Habitual</div>
             <p class="work-desc">The launch of a Berkshire men's club, told through the people in it.</p>
           </div>
@@ -848,95 +864,71 @@
           <div class="strip-caption">In the edit</div>
         </div>
         <div class="section-head">
+          <h3 class="heading-medium">The six months.</h3>
+        </div>
+        <dl class="how-rows schedule">
+          <div class="how-row">
+            <dt>October</dt>
+            <dd>The Table on the 22nd. You at first light on the river.</dd>
+          </div>
+          <div class="how-row">
+            <dt>November</dt>
+            <dd>The roundtable or the fireside chat. Photos and loops land.</dd>
+          </div>
+          <div class="how-row">
+            <dt>December</dt>
+            <dd>The second of the two. The founder film lands by the 11th.</dd>
+          </div>
+          <div class="how-row">
+            <dt>January</dt>
+            <dd>Live on the 1st. The founder film goes out on the 4th, the fireside film mid-month. The first Table of the year.</dd>
+          </div>
+          <div class="how-row">
+            <dt>February</dt>
+            <dd>The Porsche event.</dd>
+          </div>
+          <div class="how-row">
+            <dt>March</dt>
+            <dd>One room, ideally South Midlands. Review.</dd>
+          </div>
+        </dl>
+        <p class="terms-small">If the 22 October Table can't be filmed we film the 26 November Table instead.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
           <h3 class="heading-medium">How it comes together.</h3>
         </div>
         <dl class="how-rows">
           <div class="how-row">
-            <dt>Where it lives</dt>
-            <dd>
-              <p>The main film plays at the top of the new site. The loops replace the placeholder imagery. The member stories and stills fill the member and About pages.</p>
-              <p class="soft">Beyond the site, the films go out on your LinkedIn, the Trade Winds page and Instagram. They go in the event previews and emails too. You can also send them to applicants before they speak to you, or to experience partners.</p>
-            </dd>
-          </div>
-          <div class="how-row">
             <dt>The brand</dt>
-            <dd>
-              <p>Steve at Clever Little Design and I have already met, so the brand and the film pull the same way. I shoot to the brand direction: place over polish, real moments, nothing facing the camera.</p>
-              <p class="soft">We agree the shot list before the 22nd, mapped to the new site. There are no posed portraits. The people come from real moments and interview stills. Whoever builds the site in December builds it from real footage instead of stock.</p>
-            </dd>
+            <dd>Steve at Clever Little Design is doing the rebrand. Every frame is shot to his direction: place over polish, real moments, nothing facing the camera. The brand runs the same way through everything.</dd>
           </div>
           <div class="how-row">
             <dt>The Table</dt>
             <dd>
-              <p>Guests are told before the night that the first half hour is being filmed. No audio is recorded at the table. Releases are signed on arrival. Anyone who'd rather not be on camera sits out of shot or books the Table on 26 November instead.</p>
+              <p>Guests are told before the night that the first half hour is being filmed. No audio is recorded at the table. Releases are signed on arrival. Anyone who'd rather not be on camera sits out of shot or books the next Table instead.</p>
               <p>Then the camera leaves. Chatham House starts when the camera leaves.</p>
               <p class="soft">Member interviews cover their own experience only, never what anyone else said.</p>
             </dd>
           </div>
-        </dl>
-      </div>
-
-      <!-- Dates from Gary's Q4 Events Preview. Clubhouse is the Thames Valley
-           one (the Table and the walk are both Thames Valley). -->
-      <div class="section">
-        <div class="section-head">
-          <h3 class="heading-medium">The dates.</h3>
-        </div>
-        <dl class="how-rows schedule">
           <div class="how-row">
-            <dt>Thu 22 October</dt>
-            <dd>The Entrepreneurs' Table, Thames Valley, evening.</dd>
+            <dt>Member stories</dt>
+            <dd>The full member stories wait for the founding members, because a member who's joined saying why is the strongest proof there is.</dd>
           </div>
           <div class="how-row">
-            <dt>Fri 23 October</dt>
-            <dd>The Founders Walk at first light, Cookham. Member interviews straight after. <span class="soft">If the walk moves, we film it in the first week of November.</span></dd>
-          </div>
-          <div class="how-row">
-            <dt>October</dt>
-            <dd>The Clubhouse, Thames Valley, date to follow. The Founding Quarter only. <span class="soft">If there's no date in October, the November Expert Briefing takes its place.</span></dd>
-          </div>
-          <div class="how-row">
-            <dt>Mid-November</dt>
-            <dd>The Launch Film delivered.</dd>
-          </div>
-          <div class="how-row">
-            <dt>Thu 26 November</dt>
-            <dd>The next Table, if we need it.</dd>
-          </div>
-          <div class="how-row">
-            <dt>Early December</dt>
-            <dd>The Founding Quarter delivered, with the launch stack ready for January.</dd>
-          </div>
-          <div class="how-row">
-            <dt>December</dt>
-            <dd>The site is built from the footage.</dd>
-          </div>
-          <div class="how-row">
-            <dt>January</dt>
-            <dd>Trade Winds relaunches. Site, membership and film together.</dd>
+            <dt>The website</dt>
+            <dd>I'm building your website on Steve's new brand. I'll send the price over separately next week.</dd>
           </div>
         </dl>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <h3 class="heading-medium">What I need from you.</h3>
-        </div>
-        <ul class="needs">
-          <li><span>01</span>Send the filming message to the 22 October guests. I'll draft it.</li>
-          <li><span>02</span>Hold the walk for the 23rd.</li>
-          <li><span>03</span>Invite three members on the walk.</li>
-          <li><span>04</span>Confirm the Clubhouse date.</li>
-        </ul>
       </div>
     </div>
   </section>
 
   <!-- ====== ACT 04 · GREENLIGHT ======
-       Founding Quarter priced separately: main film £3,500, member films £2,250,
-       loops £1,250, photography £1,750, launch stack £2,000, creative direction
-       £1,250 = £12,000. Payment terms are Charlie's override for this client:
-       spreading Gary's spend across the launch is part of the offer. -->
+       One partnership, £2,500 a month, October to March (£15,000 in all).
+       Terms are Charlie's override for this client: monthly in advance,
+       Chapter Two confirmed by 11 December. -->
   <section class="scene" data-scene="greenlight" data-title="Greenlight">
     <div class="scene-inner">
       <div class="label-caps act-label">Act 04 · Greenlight</div>
@@ -951,87 +943,87 @@
       </div>
 
       <div class="scene-header">
-        <h2 class="heading-large">Two paths.</h2>
-        <p class="lead">Both use the same dates. Both include planning alongside the brand work, a shot list mapped to the new site and the Table filmed the Chatham House way.</p>
+        <h2 class="heading-large">£2,500 a month, October to March.</h2>
+        <p class="lead">One partnership in two chapters.</p>
       </div>
 
       <div class="paths">
-        <div class="invest alt">
+        <div class="invest">
           <div class="invest-top">
-            <div class="invest-label">The Launch Film</div>
+            <div class="invest-label">Chapter One · October to December</div>
           </div>
-          <div class="invest-amount">£6,000</div>
-          <p class="invest-summary">£3,000 on Greenlight, £3,000 on delivery.</p>
+          <div class="chapter-title">Live on 1 January.</div>
           <div class="invest-includes">
-            <div class="invest-label">Includes</div>
+            <div class="invest-label">Four shoots</div>
             <ul class="invest-list">
-              <li>Filmed at the Entrepreneurs' Table on 22 October and the Founders Walk on 23 October</li>
-              <li>A 60-second film from both rooms, in the members' voices with you as host. Made for the site, plus a version for LinkedIn and Instagram</li>
-              <li>A silent loop for the homepage, exported light so the site stays fast</li>
-              <li>Three members named on the site, with stills and their own words from short interviews</li>
-              <li>Stills from both rooms, plus stills taken in each interview's light</li>
-              <li>Delivered mid-November</li>
+              <li>Thursday 22 October: the Entrepreneurs' Table. The arrivals and the first half hour, plus short interviews with two or three members before dinner.</li>
+              <li>Late October: you at first light on the river at Cookham with your interview on what Trade Winds is and why you started it.</li>
+              <li>November: the lawyer roundtable or the fireside chat, whichever comes first.</li>
+              <li>December: whichever of the two is left.</li>
             </ul>
           </div>
+          <div class="invest-includes">
+            <div class="invest-label">Ready for 1 January</div>
+            <ul class="invest-list">
+              <li>The founder film: 60 seconds of your story with members' voices. Made for the site, with a version for LinkedIn and Instagram. Delivered by Friday 11 December so it can go out with the offer to the OGs first.</li>
+              <li>The homepage loop: silent, the river at first light, exported light so the site stays fast.</li>
+              <li>Six section loops of three to five seconds, one for each section of the site, so the page moves as you scroll.</li>
+              <li>Around 50 finished photographs from all four shoots, including stills of you and the members taken during their interviews. Nothing on the site is stock.</li>
+              <li>Members' words: two or three members named on the site, with their stills and what they told us.</li>
+              <li>A short film from the fireside chat, ready to go out in January.</li>
+            </ul>
+          </div>
+          <p class="invest-summary">Photos and loops land by the end of November so the website can be built around them. On 1 January the site goes live with all of it. The founder film goes out on LinkedIn and Instagram on Monday 4 January, when people are back at their desks.</p>
+          <p class="invest-confirm">Confirmed on Greenlight.</p>
         </div>
 
         <div class="invest">
           <div class="invest-top">
-            <div class="invest-label">The Founding Quarter</div>
-            <div class="invest-rec">Recommended</div>
+            <div class="invest-label">Chapter Two · January to March</div>
           </div>
-          <div class="invest-amount">£9,000</div>
-          <p class="invest-summary">£3,000 on Greenlight, £3,000 at the end of November, £3,000 on delivery.</p>
+          <div class="chapter-title">Build on it.</div>
+          <p class="invest-summary">One room filmed each month. Each becomes a short film (or a member's story once the OGs have joined), four short videos for LinkedIn and Instagram, plus stills, new loops and photos for the site so it always shows what's happening now. You write your own captions. I give you a short title and a steer for each.</p>
           <div class="invest-includes">
-            <div class="invest-label">Includes</div>
-            <p class="invest-plus">Everything in the Launch Film, plus:</p>
+            <div class="invest-label">Each month</div>
             <ul class="invest-list">
-              <li>The Clubhouse as a third room</li>
-              <li>The 60-second film built from all three rooms</li>
-              <li>Loops for the other sections of the site</li>
-              <li>Three member films, each under a minute, for the member stories and for social</li>
-              <li>Stills from all three rooms</li>
-              <li>The launch stack for January</li>
-              <li>Delivered early December, with the stack ready for January</li>
+              <li>January: the fireside chat film goes out mid-month. I film the first Table of the year.</li>
+              <li>February: the Porsche event, if it's dated by then.</li>
+              <li>March: a Table, a walk or an Expert Briefing, ideally in the South Midlands so the second region is seen. At the end of the month we review it together and plan the next quarter.</li>
             </ul>
           </div>
+          <p class="invest-summary">By the end of March you have five films, twelve short videos, around 100 photographs and a site that's changed every month.</p>
+          <p class="invest-confirm">Confirmed by Friday 11 December, once you've seen the founder film.</p>
         </div>
+      </div>
+
+      <div class="terms-block">
+        <p>£2,500 at the start of each month. October's is paid on Greenlight.</p>
+        <p>Across the six months it's more than the January number you gave me. The difference is January to March: the rooms after launch, filmed as they happen.</p>
+        <p>Plus the website, quoted separately.</p>
       </div>
       <p class="invest-terms">Pay by bank transfer or card, whichever's easier.</p>
 
-      <p class="line-under">The Launch Film gets Trade Winds live. The Founding Quarter makes it look like it's been here for years.</p>
-
-      <p class="terms-small">Priced separately, the Founding Quarter comes to £12,000: the main film £3,500, three member films £2,250, loops £1,250, photography £1,750, the launch stack £2,000 and creative direction alongside the brand £1,250. Together they're £9,000.</p>
-      <p class="terms-small">The launch stack is twelve posts for LinkedIn and Instagram across January. Each video is repurposed for social with subtitles in the brand typeface and a designed cover. Carousels come as images. A running order covers the dates and which three to pin. The captions are yours, in your own words. I'll give you a short title and a steer for each post. Posting, scheduling, replying and paid promotion aren't included.</p>
-
       <div class="section">
         <div class="section-head">
-          <h3 class="heading-medium">Beyond January.</h3>
+          <h3 class="heading-medium">Beyond March.</h3>
         </div>
-        <p class="lead" style="margin-top:0">From January, Trade Winds runs a calendar of rooms across two regions. A monthly partnership would capture them as they happen, with <em>Run your business like you'll sell it</em> as a recurring series of real conversations with owners. The Porsche event and the expert briefings can be filmed as their own pieces once they're dated.</p>
-        <p class="lead">The footage and stills stay with Trade Winds as a library for 2027.</p>
+        <p class="lead" style="margin-top:0">Paid ads behind the films with a partner I trust, so the content and the ads sit in one place. And <em>Run your business like you'll sell it</em> as a series in your own voice.</p>
       </div>
 
-      <p class="hold">This holds until 12pm on Friday 16 October, so the guests at the 22 October Table can be told in good time and the walk can be locked.</p>
+      <p class="hold">This holds until 12pm Monday 19 October, so the guests at the 22 October Table can be told in good time.</p>
 
       <form class="greenlight" id="greenlightForm" novalidate>
         <p class="agreement-quote">Press Greenlight. That is the paperwork.</p>
         <div class="agreement-steps">
-          <div class="agreement-step"><span class="agreement-step-num">01</span><span>Choose your path.</span></div>
-          <div class="agreement-step"><span class="agreement-step-num">02</span><span>I send the deposit invoice and the 22nd is locked in.</span></div>
+          <div class="agreement-step"><span class="agreement-step-num">01</span><span>I send October's invoice.</span></div>
+          <div class="agreement-step"><span class="agreement-step-num">02</span><span>The 22nd is locked in.</span></div>
         </div>
-
-        <fieldset class="choice">
-          <legend>Choose your path</legend>
-          <label><input type="radio" name="path" value="The Launch Film · £6,000">The Launch Film <span>£6,000</span></label>
-          <label><input type="radio" name="path" value="The Founding Quarter · £9,000">The Founding Quarter <span>£9,000</span></label>
-        </fieldset>
 
         <label class="note-label" for="gNote">Anything to add? Optional.</label>
         <textarea class="note-field" id="gNote" name="note"></textarea>
 
         <div class="gl-row">
-          <button type="submit" class="btn-cta" id="signBtn" disabled>Greenlight the Film →</button>
+          <button type="submit" class="btn-cta" id="signBtn">Greenlight →</button>
           <div class="signature">
             <div class="signature-mark">CT</div>
             <div>
@@ -1040,6 +1032,7 @@
             </div>
           </div>
         </div>
+        <p class="send-fail" id="sendFail" role="alert" hidden>That didn't go through. Press Greenlight again or email <a href="mailto:charlie@tillettfilm.com">charlie@tillettfilm.com</a>.</p>
       </form>
     </div>
   </section>
@@ -1070,7 +1063,6 @@
 <div class="closing" id="closing" aria-live="polite">
   <div class="closing-text">
     <div class="closing-tagline">Thank you, Gary.</div>
-    <p class="closing-body">Deposit invoice is on its way and the 22nd is in the calendar.</p>
     <div class="closing-rule"></div>
     <div class="closing-sub">Charlie Tillett</div>
   </div>
@@ -1259,41 +1251,44 @@
   const signBtn = document.getElementById('signBtn');
   const noteField = document.getElementById('gNote');
 
-  form.addEventListener('change', () => {
-    signBtn.disabled = !form.querySelector('input[name="path"]:checked');
-  });
+  const PARTNERSHIP = 'The partnership · £2,500 a month, October to March';
+  const sendFail = document.getElementById('sendFail');
+  const BTN_LABEL = signBtn.textContent;
 
-  function chosenPath() {
-    const c = form.querySelector('input[name="path"]:checked');
-    return c ? c.value : '';
-  }
-
-  // If the POST fails, fall back to a prefilled email so a greenlight is never silently lost.
-  function greenlightFallback(path, note) {
-    const subject = encodeURIComponent('Greenlight · Trade Winds · ' + path);
-    const body = encodeURIComponent('Gary Swanwick has greenlighted ' + path + '.' + (note ? '\n\nNote: ' + note : ''));
-    window.location.href = 'mailto:charlie@tillettfilm.com?subject=' + subject + '&body=' + body;
-  }
-
+  // A plain form post: no preflight, and keepalive lets it finish even if the
+  // page is closed straight after. The thank-you only shows once Formspree has
+  // it; if it fails, the button comes back with a line to try again.
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const path = chosenPath();
-    if (!path || signBtn.disabled) return;
+    if (signBtn.disabled) return;
     const note = noteField.value.trim();
     signBtn.disabled = true;
-    playClosingScreen();
+    signBtn.classList.add('sending');
+    signBtn.textContent = 'Sending…';
+    sendFail.hidden = true;
+
+    const data = new URLSearchParams({
+      _subject: 'Trade Winds · Greenlight · ' + PARTNERSHIP,
+      subject: 'Trade Winds · Greenlight · ' + PARTNERSHIP,
+      message: 'Gary Swanwick has greenlighted ' + PARTNERSHIP + '. Send October\'s invoice.',
+      partnership: PARTNERSHIP,
+      note: note || '(none)'
+    });
 
     fetch('https://formspree.io/f/' + FORMSPREE_ID, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        subject: 'Trade Winds · Greenlight · ' + path,
-        message: 'Gary Swanwick has greenlighted ' + path + '. Send the deposit invoice.',
-        path: path,
-        note: note || '(none)'
-      })
-    }).then(r => { if (!r.ok) greenlightFallback(path, note); })
-      .catch(() => greenlightFallback(path, note));
+      headers: { 'Accept': 'application/json' },
+      body: data,
+      keepalive: true
+    }).then(r => {
+      if (!r.ok) throw new Error('Formspree ' + r.status);
+      playClosingScreen();
+    }).catch(() => {
+      signBtn.classList.remove('sending');
+      signBtn.textContent = BTN_LABEL;
+      signBtn.disabled = false;
+      sendFail.hidden = false;
+    });
   });
 </script>
 
